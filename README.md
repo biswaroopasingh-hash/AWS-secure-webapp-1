@@ -96,5 +96,5 @@ This project was developed as a Minor Project for the Master of Computer Applica
 Keywords: AWS Amplify, Amazon Cognito, JWT Authentication, AWS Lambda, API Gateway, DynamoDB, AWS WAF, CloudWatch, Serverless Architecture, CI/CD, Route Protection, sessionStorage
 
 👨‍💻 Author
-MCA Minor Project
+Biswaroopa Singh
 Secure Cloud-Based Web Application Using AWS Services
