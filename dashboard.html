@@ -43,6 +43,125 @@
     z-index: 0;
   }
 
+  /* ── Auth Gate Overlay ───────────────────────────────────── */
+  #authGate {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  #authGate.show { display: flex; }
+
+  .gate-icon { font-size: 52px; }
+
+  .gate-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .gate-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 300px;
+    line-height: 1.6;
+  }
+
+  .gate-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent5);
+  }
+
+  .gate-btn {
+    margin-top: 8px;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(255,117,140,0.4);
+  }
+
+  .gate-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255,117,140,0.55);
+  }
+
+  /* ── Top Nav Bar ─────────────────────────────────────────── */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,11,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-user {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .nav-user span {
+    color: var(--accent3);
+  }
+
+  .logout-btn {
+    padding: 7px 16px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.35);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-size: 12px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.3px;
+  }
+
+  .logout-btn:hover {
+    background: rgba(239,68,68,0.2);
+    border-color: rgba(239,68,68,0.6);
+    color: #fff;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ── Main Page ───────────────────────────────────────────── */
   .page {
     position: relative;
     z-index: 1;
@@ -120,7 +239,6 @@
     text-align: center;
   }
 
-  /* Flow row */
   .flow {
     display: flex;
     align-items: center;
@@ -167,11 +285,7 @@
     pointer-events: none;
   }
 
-  .node-icon {
-    font-size: 28px;
-    line-height: 1;
-  }
-
+  .node-icon  { font-size: 28px; line-height: 1; }
   .node-label {
     font-size: 9px;
     font-weight: 700;
@@ -182,57 +296,38 @@
     line-height: 1.3;
   }
 
-  /* Arrow */
-  .arrow {
-    display: flex;
-    align-items: center;
-    padding: 0 4px;
-    opacity: 0.6;
-  }
-
+  .arrow { display: flex; align-items: center; padding: 0 4px; opacity: 0.6; }
   .arrow-line {
-    width: 30px;
-    height: 2px;
+    width: 30px; height: 2px;
     background: linear-gradient(90deg, var(--border), var(--accent));
     position: relative;
   }
-
   .arrow-line::after {
     content: '';
     position: absolute;
-    right: -6px;
-    top: -4px;
+    right: -6px; top: -4px;
     border-left: 8px solid var(--accent);
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
   }
 
-  /* Color themes per node */
-  .node-user .node-box     { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.4); }
+  .node-user .node-box     { background: rgba(16,185,129,0.08);  border-color: rgba(16,185,129,0.4); }
   .node-user .node-label   { color: var(--accent3); }
-
-  .node-waf .node-box      { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.4); }
+  .node-waf .node-box      { background: rgba(239,68,68,0.08);   border-color: rgba(239,68,68,0.4); }
   .node-waf .node-label    { color: var(--accent5); }
-
-  .node-amplify .node-box  { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.4); }
+  .node-amplify .node-box  { background: rgba(245,158,11,0.08);  border-color: rgba(245,158,11,0.4); }
   .node-amplify .node-label{ color: var(--accent4); }
-
-  .node-cognito .node-box  { background: rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.4); }
+  .node-cognito .node-box  { background: rgba(124,58,237,0.08);  border-color: rgba(124,58,237,0.4); }
   .node-cognito .node-label{ color: #a78bfa; }
-
-  .node-apigw .node-box    { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.4); }
+  .node-apigw .node-box    { background: rgba(0,212,255,0.08);   border-color: rgba(0,212,255,0.4); }
   .node-apigw .node-label  { color: var(--accent); }
-
-  .node-lambda .node-box   { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.35); }
+  .node-lambda .node-box   { background: rgba(245,158,11,0.08);  border-color: rgba(245,158,11,0.35); }
   .node-lambda .node-label { color: var(--accent4); }
-
-  .node-dynamo .node-box   { background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.35); }
+  .node-dynamo .node-box   { background: rgba(0,212,255,0.08);   border-color: rgba(0,212,255,0.35); }
   .node-dynamo .node-label { color: var(--accent); }
-
-  .node-cw .node-box       { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.35); }
+  .node-cw .node-box       { background: rgba(16,185,129,0.08);  border-color: rgba(16,185,129,0.35); }
   .node-cw .node-label     { color: var(--accent3); }
 
-  /* Security layer banner */
   .security-banner {
     display: flex;
     align-items: center;
@@ -249,7 +344,7 @@
     letter-spacing: 1px;
   }
 
-  /* Service cards grid */
+  /* Service cards */
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -268,9 +363,7 @@
     animation: fadeUp 0.6s ease both;
   }
 
-  .service-card:hover {
-    transform: translateY(-3px);
-  }
+  .service-card:hover { transform: translateY(-3px); }
 
   .service-card::before {
     content: '';
@@ -287,21 +380,13 @@
   .card-blue::before   { background: var(--accent); }
   .card-teal::before   { background: #06b6d4; }
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 
   .card-icon {
     font-size: 26px;
-    width: 46px;
-    height: 46px;
+    width: 46px; height: 46px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
 
@@ -312,32 +397,11 @@
   .card-icon-blue   { background: rgba(0,212,255,0.12); }
   .card-icon-teal   { background: rgba(6,182,212,0.12); }
 
-  .card-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
+  .card-name    { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .card-service { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--muted); letter-spacing: 1px; }
+  .card-body    { font-size: 13px; color: #8aa8cc; line-height: 1.65; margin-bottom: 14px; }
 
-  .card-service {
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  .card-body {
-    font-size: 13px;
-    color: #8aa8cc;
-    line-height: 1.65;
-    margin-bottom: 14px;
-  }
-
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
   .tag {
     font-size: 10px;
@@ -348,13 +412,13 @@
   }
 
   .tag-green  { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); }
-  .tag-red    { background: rgba(239,68,68,0.12); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
+  .tag-red    { background: rgba(239,68,68,0.12);  color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
   .tag-yellow { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
   .tag-purple { background: rgba(124,58,237,0.12); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.2); }
-  .tag-blue   { background: rgba(0,212,255,0.12); color: #7dd3fc; border: 1px solid rgba(0,212,255,0.2); }
-  .tag-teal   { background: rgba(6,182,212,0.12); color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
+  .tag-blue   { background: rgba(0,212,255,0.12);  color: #7dd3fc; border: 1px solid rgba(0,212,255,0.2); }
+  .tag-teal   { background: rgba(6,182,212,0.12);  color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
 
-  /* Data flow section */
+  /* Data flow steps */
   .flow-steps {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -376,18 +440,9 @@
     gap: 10px;
   }
 
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  .step-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+  .step-list { display: flex; flex-direction: column; gap: 14px; }
 
   .step-item {
     display: flex;
@@ -400,40 +455,23 @@
     transition: border-color 0.3s;
   }
 
-  .step-item:hover {
-    border-color: rgba(0,212,255,0.3);
-  }
+  .step-item:hover { border-color: rgba(0,212,255,0.3); }
 
   .step-num {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     background: rgba(0,212,255,0.1);
     border: 1.5px solid rgba(0,212,255,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
     font-family: 'JetBrains Mono', monospace;
     color: var(--accent);
     flex-shrink: 0;
     margin-top: 1px;
   }
 
-  .step-content strong {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 3px;
-  }
-
-  .step-content span {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
+  .step-content strong { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .step-content span   { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
   /* Security layers */
   .security-layers {
@@ -461,13 +499,13 @@
     gap: 8px;
   }
 
-  .sec-icon { font-size: 22px; }
+  .sec-icon  { font-size: 22px; }
   .sec-title { font-size: 13px; font-weight: 700; }
-  .sec-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .sec-desc  { font-size: 11px; color: var(--muted); line-height: 1.5; }
 
-  .sec-red    { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2); }
+  .sec-red    { background: rgba(239,68,68,0.05);  border-color: rgba(239,68,68,0.2); }
   .sec-purple { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.2); }
-  .sec-blue   { background: rgba(0,212,255,0.05); border-color: rgba(0,212,255,0.2); }
+  .sec-blue   { background: rgba(0,212,255,0.05);  border-color: rgba(0,212,255,0.2); }
   .sec-green  { background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.2); }
 
   .sec-red .sec-title    { color: #fca5a5; }
@@ -475,7 +513,7 @@
   .sec-blue .sec-title   { color: #7dd3fc; }
   .sec-green .sec-title  { color: #6ee7b7; }
 
-  /* Summary bar */
+  /* Summary chips */
   .summary {
     display: flex;
     flex-wrap: wrap;
@@ -499,10 +537,7 @@
   }
 
   .summary-chip:hover { border-color: var(--accent); }
-  .chip-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-  }
+  .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
 
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-20px); }
@@ -513,7 +548,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Staggered card animations */
   .service-card:nth-child(1) { animation-delay: 0.1s; }
   .service-card:nth-child(2) { animation-delay: 0.2s; }
   .service-card:nth-child(3) { animation-delay: 0.3s; }
@@ -528,268 +562,182 @@
     .node-icon { font-size: 22px; }
     .arrow-line { width: 16px; }
     .arch-container { padding: 24px 14px; }
+    .navbar { padding: 10px 16px; }
+    .nav-user { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
+
+<!-- ── Auth Gate (shown if no token) ───────────────────── -->
+<div id="authGate">
+  <div class="gate-icon">🔒</div>
+  <div class="gate-title">Access Denied</div>
+  <div class="gate-sub">You must be logged in to view this page. Redirecting you to login...</div>
+  <div class="gate-count" id="gateCount">Redirecting in 3s...</div>
+  <button class="gate-btn" onclick="goToLogin()">Go to Login Now</button>
+</div>
+
+<!-- ── Navbar ───────────────────────────────────────────── -->
+<nav class="navbar" id="navbar" style="display:none">
+  <div class="nav-brand">⚡ AWS Secure App</div>
+  <div class="nav-right">
+    <div class="nav-user">Logged in as: <span id="navEmail">—</span></div>
+    <button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+  </div>
+</nav>
+
+<!-- ── Main Dashboard ───────────────────────────────────── -->
+<div class="page" id="mainContent" style="display:none">
 
   <!-- Header -->
   <div class="header">
-    <div class="badge">☁️ AWS Cloud Project</div>
-    <h1>Secure Serverless Web Application<br>Architecture</h1>
-    <p>Complete visual guide — services, flow, and security layers</p>
+    <div class="badge">🛡️ Authenticated Session</div>
+    <h1>AWS Secure Web App<br>Architecture</h1>
+    <p>Serverless · Scalable · Secure · Monitored</p>
   </div>
 
-  <!-- Architecture Flow Diagram -->
+  <!-- Architecture Diagram -->
   <div class="arch-container">
     <div class="arch-title">// System Architecture Flow</div>
 
-    <!-- Row 1: Main flow -->
     <div class="flow">
       <div class="flow-node node-user">
-        <div class="node-box">
-          <span class="node-icon">👤</span>
-          <span class="node-label">User<br>Browser</span>
-        </div>
+        <div class="node-box"><div class="node-icon">👤</div><div class="node-label">User</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-waf">
-        <div class="node-box">
-          <span class="node-icon">🛡️</span>
-          <span class="node-label">AWS<br>WAF</span>
-        </div>
+        <div class="node-box"><div class="node-icon">🛡️</div><div class="node-label">AWS WAF</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-amplify">
-        <div class="node-box">
-          <span class="node-icon">🌐</span>
-          <span class="node-label">AWS<br>Amplify</span>
-        </div>
+        <div class="node-box"><div class="node-icon">⚡</div><div class="node-label">Amplify</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-cognito">
-        <div class="node-box">
-          <span class="node-icon">🔐</span>
-          <span class="node-label">Cognito<br>Auth</span>
-        </div>
+        <div class="node-box"><div class="node-icon">🔐</div><div class="node-label">Cognito</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-apigw">
-        <div class="node-box">
-          <span class="node-icon">🔀</span>
-          <span class="node-label">API<br>Gateway</span>
-        </div>
+        <div class="node-box"><div class="node-icon">🔀</div><div class="node-label">API GW</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-lambda">
-        <div class="node-box">
-          <span class="node-icon">⚡</span>
-          <span class="node-label">AWS<br>Lambda</span>
-        </div>
+        <div class="node-box"><div class="node-icon">λ</div><div class="node-label">Lambda</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-dynamo">
-        <div class="node-box">
-          <span class="node-icon">🗄️</span>
-          <span class="node-label">Dynamo<br>DB</span>
-        </div>
+        <div class="node-box"><div class="node-icon">🗄️</div><div class="node-label">DynamoDB</div></div>
       </div>
-
       <div class="arrow"><div class="arrow-line"></div></div>
 
       <div class="flow-node node-cw">
-        <div class="node-box">
-          <span class="node-icon">📊</span>
-          <span class="node-label">Cloud<br>Watch</span>
-        </div>
+        <div class="node-box"><div class="node-icon">📊</div><div class="node-label">CloudWatch</div></div>
       </div>
     </div>
 
     <div class="security-banner">
-      🔒 &nbsp; SECURITY LAYER: WAF filters all incoming traffic &nbsp;|&nbsp; Cognito authenticates users &nbsp;|&nbsp; IAM controls Lambda permissions
-    </div>
-
-    <!-- GitHub → Amplify note -->
-    <div style="text-align:center; margin-top:10px; font-size:11px; font-family:'JetBrains Mono',monospace; color:#4a6fa5; letter-spacing:1px;">
-      📦 GitHub (source code) → Auto deploys to Amplify on every push
+      🔴 WAF Layer Active &nbsp;·&nbsp; 🔐 JWT Auth Enforced &nbsp;·&nbsp; 📋 All Requests Logged
     </div>
   </div>
 
   <!-- Service Cards -->
-  <div style="font-size:11px; font-family:'JetBrains Mono',monospace; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px;">
-    Services Explained
-    <span style="flex:1; height:1px; background:var(--border); display:block;"></span>
-  </div>
-
   <div class="cards-grid">
 
-    <!-- GitHub -->
     <div class="service-card card-green">
       <div class="card-header">
-        <div class="card-icon card-icon-green">🐙</div>
-        <div>
-          <div class="card-name">GitHub Repository</div>
-          <div class="card-service">SOURCE CONTROL</div>
-        </div>
+        <div class="card-icon card-icon-green">⚡</div>
+        <div><div class="card-name">AWS Amplify</div><div class="card-service">HOSTING · CI/CD</div></div>
       </div>
-      <div class="card-body">Stores your <code style="background:rgba(0,212,255,0.1);padding:1px 5px;border-radius:3px;font-size:11px;">index.html</code> frontend code. Every push to <strong style="color:#6ee7b7;">main branch</strong> automatically triggers a redeployment on Amplify. This is your CI/CD pipeline.</div>
+      <div class="card-body">Hosts both frontend pages (index.html + dashboard.html) directly from GitHub. Every commit triggers an automatic redeploy — no manual upload needed.</div>
       <div class="card-tags">
-        <span class="tag tag-green">Version Control</span>
         <span class="tag tag-green">Auto Deploy</span>
-        <span class="tag tag-green">CI/CD</span>
+        <span class="tag tag-green">GitHub CI/CD</span>
+        <span class="tag tag-green">CDN</span>
       </div>
     </div>
 
-    <!-- Amplify -->
-    <div class="service-card card-yellow">
+    <div class="service-card card-red">
       <div class="card-header">
-        <div class="card-icon card-icon-yellow">🌐</div>
-        <div>
-          <div class="card-name">AWS Amplify</div>
-          <div class="card-service">FRONTEND HOSTING</div>
-        </div>
+        <div class="card-icon card-icon-red">🛡️</div>
+        <div><div class="card-name">AWS WAF</div><div class="card-service">WEB APPLICATION FIREWALL</div></div>
       </div>
-      <div class="card-body">Hosts your HTML/CSS/JS website with a live HTTPS URL. Connects directly to GitHub and redeploys automatically. Provides <strong style="color:#fcd34d;">free SSL certificate</strong> and a global CDN for fast loading worldwide.</div>
+      <div class="card-body">Filters all incoming traffic before it reaches the API. Blocks SQL injection, XSS attacks, and known malicious inputs using AWS managed rule groups.</div>
       <div class="card-tags">
-        <span class="tag tag-yellow">HTTPS</span>
-        <span class="tag tag-yellow">CDN</span>
-        <span class="tag tag-yellow">Free SSL</span>
-        <span class="tag tag-yellow">Auto Redeploy</span>
+        <span class="tag tag-red">SQLi Protection</span>
+        <span class="tag tag-red">XSS Block</span>
+        <span class="tag tag-red">Rate Limiting</span>
       </div>
     </div>
 
-    <!-- Cognito -->
     <div class="service-card card-purple">
       <div class="card-header">
         <div class="card-icon card-icon-purple">🔐</div>
-        <div>
-          <div class="card-name">Amazon Cognito</div>
-          <div class="card-service">AUTHENTICATION</div>
-        </div>
+        <div><div class="card-name">Amazon Cognito</div><div class="card-service">AUTHENTICATION · JWT</div></div>
       </div>
-      <div class="card-body">Manages <strong style="color:#c4b5fd;">user login and registration</strong> with email/password. Issues JWT tokens after login. API Gateway checks these tokens — only verified users can submit the form and call the backend API.</div>
+      <div class="card-body">Handles user login with email and password. Issues JWT tokens (IdToken, AccessToken) stored in sessionStorage. Dashboard is protected — inaccessible without a valid token.</div>
       <div class="card-tags">
         <span class="tag tag-purple">JWT Tokens</span>
-        <span class="tag tag-purple">User Pool</span>
-        <span class="tag tag-purple">Email Auth</span>
+        <span class="tag tag-purple">USER_PASSWORD_AUTH</span>
+        <span class="tag tag-purple">Session Guard</span>
       </div>
     </div>
 
-    <!-- API Gateway -->
     <div class="service-card card-blue">
       <div class="card-header">
         <div class="card-icon card-icon-blue">🔀</div>
-        <div>
-          <div class="card-name">API Gateway</div>
-          <div class="card-service">HTTP API — POST /submit</div>
-        </div>
+        <div><div class="card-name">API Gateway</div><div class="card-service">HTTP API · REST ENDPOINT</div></div>
       </div>
-      <div class="card-body">Acts as the <strong style="color:#7dd3fc;">front door</strong> for your backend. Receives the form POST request from the browser, verifies the Cognito JWT token, then forwards the request to Lambda. Also handles CORS headers.</div>
+      <div class="card-body">Exposes the POST /submit endpoint. Validates JWT tokens via Cognito Authorizer before forwarding requests to Lambda. CORS enabled for browser requests.</div>
       <div class="card-tags">
-        <span class="tag tag-blue">REST API</span>
-        <span class="tag tag-blue">CORS</span>
+        <span class="tag tag-blue">POST /submit</span>
         <span class="tag tag-blue">JWT Authorizer</span>
+        <span class="tag tag-blue">CORS</span>
       </div>
     </div>
 
-    <!-- Lambda -->
     <div class="service-card card-yellow">
       <div class="card-header">
-        <div class="card-icon card-icon-yellow">⚡</div>
-        <div>
-          <div class="card-name">AWS Lambda</div>
-          <div class="card-service">SERVERLESS BACKEND · PYTHON</div>
-        </div>
+        <div class="card-icon card-icon-yellow">λ</div>
+        <div><div class="card-name">AWS Lambda</div><div class="card-service">SERVERLESS COMPUTE</div></div>
       </div>
-      <div class="card-body">Runs your <strong style="color:#fcd34d;">Python backend logic</strong> without any server. Receives the form data (name + email), parses it, and saves it to DynamoDB. Scales automatically — runs only when called, so you pay nothing when idle.</div>
+      <div class="card-body">Python 3.12 function that receives login data, validates it, and writes the record to DynamoDB. Scales automatically — no server management required.</div>
       <div class="card-tags">
         <span class="tag tag-yellow">Python 3.12</span>
-        <span class="tag tag-yellow">No Server</span>
-        <span class="tag tag-yellow">boto3</span>
+        <span class="tag tag-yellow">Serverless</span>
         <span class="tag tag-yellow">Auto Scale</span>
       </div>
     </div>
 
-    <!-- DynamoDB -->
     <div class="service-card card-blue">
       <div class="card-header">
         <div class="card-icon card-icon-teal">🗄️</div>
-        <div>
-          <div class="card-name">Amazon DynamoDB</div>
-          <div class="card-service">NOSQL DATABASE</div>
-        </div>
+        <div><div class="card-name">DynamoDB</div><div class="card-service">NOSQL DATABASE</div></div>
       </div>
-      <div class="card-body">Permanently stores all form submissions. Table name: <code style="background:rgba(0,212,255,0.1);padding:1px 5px;border-radius:3px;font-size:11px;">ContactForm</code>. Uses <strong style="color:#67e8f9;">email as the primary key</strong>. Serverless — no database server to manage. Scales to millions of records automatically.</div>
+      <div class="card-body">Stores login records with email as the partition key. Fully managed, serverless NoSQL database with single-digit millisecond read/write performance.</div>
       <div class="card-tags">
         <span class="tag tag-teal">NoSQL</span>
+        <span class="tag tag-teal">email PK</span>
         <span class="tag tag-teal">Serverless</span>
-        <span class="tag tag-teal">Primary Key: email</span>
       </div>
     </div>
 
-    <!-- IAM -->
-    <div class="service-card card-purple">
-      <div class="card-header">
-        <div class="card-icon card-icon-purple">🗝️</div>
-        <div>
-          <div class="card-name">IAM Role</div>
-          <div class="card-service">PERMISSIONS & ACCESS</div>
-        </div>
-      </div>
-      <div class="card-body">Grants Lambda <strong style="color:#c4b5fd;">permission to write to DynamoDB</strong>. Policy used: <code style="background:rgba(0,212,255,0.1);padding:1px 5px;border-radius:3px;font-size:11px;">AmazonDynamoDBFullAccess</code>. Without this role, Lambda would be blocked from saving data — security principle of least privilege.</div>
-      <div class="card-tags">
-        <span class="tag tag-purple">Permissions</span>
-        <span class="tag tag-purple">IAM Policy</span>
-        <span class="tag tag-purple">Least Privilege</span>
-      </div>
-    </div>
-
-    <!-- CloudWatch -->
     <div class="service-card card-green">
       <div class="card-header">
         <div class="card-icon card-icon-green">📊</div>
-        <div>
-          <div class="card-name">Amazon CloudWatch</div>
-          <div class="card-service">MONITORING & LOGS</div>
-        </div>
+        <div><div class="card-name">CloudWatch</div><div class="card-service">LOGS · MONITORING · ALERTS</div></div>
       </div>
-      <div class="card-body">Automatically captures all <strong style="color:#6ee7b7;">Lambda logs</strong> including your <code style="background:rgba(0,212,255,0.1);padding:1px 5px;border-radius:3px;font-size:11px;">print()</code> statements. Dashboard shows invocations, errors, and duration. Alarms alert you when errors exceed threshold.</div>
+      <div class="card-body">Captures every Lambda invocation log. Dashboard monitors Invocations, Errors, and Duration. SNS alarm triggers email alert when Lambda errors exceed threshold.</div>
       <div class="card-tags">
-        <span class="tag tag-green">Logs</span>
+        <span class="tag tag-green">Log Groups</span>
         <span class="tag tag-green">Dashboard</span>
-        <span class="tag tag-green">Alarms</span>
-        <span class="tag tag-green">Metrics</span>
-      </div>
-    </div>
-
-    <!-- WAF -->
-    <div class="service-card card-red">
-      <div class="card-header">
-        <div class="card-icon card-icon-red">🛡️</div>
-        <div>
-          <div class="card-name">AWS WAF</div>
-          <div class="card-service">WEB APPLICATION FIREWALL</div>
-        </div>
-      </div>
-      <div class="card-body">Sits in front of API Gateway and <strong style="color:#fca5a5;">blocks malicious traffic</strong> before it reaches your backend. Protects against SQL Injection, XSS attacks, and known bad IPs. Uses AWS Managed Core Rule Set — no manual rule writing needed.</div>
-      <div class="card-tags">
-        <span class="tag tag-red">SQL Injection</span>
-        <span class="tag tag-red">XSS Block</span>
-        <span class="tag tag-red">Core Rule Set</span>
-        <span class="tag tag-red">IP Reputation</span>
+        <span class="tag tag-green">SNS Alarm</span>
       </div>
     </div>
 
@@ -797,69 +745,48 @@
 
   <!-- Data Flow Steps -->
   <div class="flow-steps">
-    <div class="section-label">Request Journey — Step by Step</div>
+    <div class="section-label">Request Flow — Step by Step</div>
     <div class="step-list">
       <div class="step-item">
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>User opens website</strong>
-          <span>Browser loads index.html from AWS Amplify over HTTPS. The page shows the contact form with Name and Email fields.</span>
+          <strong>User opens login page (index.html via Amplify)</strong>
+          <span>AWS WAF inspects the request first. Clean traffic reaches the Amplify-hosted login page.</span>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>WAF scans the traffic</strong>
-          <span>All requests first pass through AWS WAF. Malicious payloads (SQL injection, XSS scripts) are blocked immediately before reaching any service.</span>
+          <strong>User enters email + password → Cognito authenticates</strong>
+          <span>Login page calls Cognito InitiateAuth API directly. Cognito validates credentials and returns JWT tokens.</span>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>User logs in via Cognito</strong>
-          <span>Cognito verifies email + password and issues a JWT token. This token proves the user is authenticated.</span>
+          <strong>JWT tokens saved → Dashboard opens</strong>
+          <span>IdToken and AccessToken stored in sessionStorage. User is redirected to dashboard.html automatically.</span>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">4</div>
         <div class="step-content">
-          <strong>Form submitted → API Gateway</strong>
-          <span>JavaScript sends a POST request to API Gateway endpoint /submit with the JWT token in the Authorization header and form data in the body (JSON).</span>
+          <strong>Dashboard verifies token on load</strong>
+          <span>dashboard.html checks sessionStorage on every load. No token = immediate redirect back to login. Valid token = dashboard renders.</span>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">5</div>
         <div class="step-content">
-          <strong>API Gateway validates JWT</strong>
-          <span>The Cognito Authorizer checks the JWT token. If invalid or expired, request is rejected with 401 Unauthorized. Valid requests proceed to Lambda.</span>
+          <strong>Data sent to API Gateway with JWT header</strong>
+          <span>POST /submit called with Authorization: Bearer &lt;idToken&gt;. API Gateway Cognito Authorizer validates the token.</span>
         </div>
       </div>
       <div class="step-item">
         <div class="step-num">6</div>
         <div class="step-content">
-          <strong>Lambda executes Python code</strong>
-          <span>Lambda receives the event, parses the JSON body (name + email), logs the data to CloudWatch, then calls DynamoDB to save the record.</span>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">7</div>
-        <div class="step-content">
-          <strong>DynamoDB stores the data</strong>
-          <span>The ContactForm table permanently saves the name and email using email as the primary key. Returns success to Lambda.</span>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">8</div>
-        <div class="step-content">
-          <strong>Response returns to user</strong>
-          <span>Lambda returns statusCode 200 → API Gateway forwards it → Browser shows ✅ "Submitted successfully!" message to the user.</span>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">9</div>
-        <div class="step-content">
-          <strong>CloudWatch logs everything</strong>
-          <span>All Lambda print() logs, execution time, memory usage, and any errors are automatically captured and visible in CloudWatch Log Groups.</span>
+          <strong>Lambda saves to DynamoDB → CloudWatch logs</strong>
+          <span>LoginFormHandler writes email + name to LoginData table. Every step is automatically logged to CloudWatch.</span>
         </div>
       </div>
     </div>
@@ -871,41 +798,89 @@
     <div class="sec-grid">
       <div class="sec-item sec-red">
         <div class="sec-icon">🛡️</div>
-        <div class="sec-title">WAF Protection</div>
-        <div class="sec-desc">Blocks SQL injection, XSS, and bad IPs before they reach your app</div>
+        <div class="sec-title">AWS WAF</div>
+        <div class="sec-desc">Blocks SQL injection, XSS, and known bad inputs before they reach any AWS resource.</div>
       </div>
       <div class="sec-item sec-purple">
         <div class="sec-icon">🔐</div>
-        <div class="sec-title">Cognito Auth</div>
-        <div class="sec-desc">JWT-based authentication. Only logged-in users can use the API</div>
+        <div class="sec-title">Cognito JWT</div>
+        <div class="sec-desc">Every user is authenticated. Dashboard is protected by client-side token check on every page load.</div>
       </div>
       <div class="sec-item sec-blue">
-        <div class="sec-icon">🔒</div>
-        <div class="sec-title">HTTPS Only</div>
-        <div class="sec-desc">Amplify enforces SSL/TLS. All data in transit is encrypted</div>
+        <div class="sec-icon">🔀</div>
+        <div class="sec-title">API Authorizer</div>
+        <div class="sec-desc">API Gateway rejects any request without a valid Cognito JWT — 401 Unauthorized returned.</div>
       </div>
       <div class="sec-item sec-green">
-        <div class="sec-icon">🗝️</div>
-        <div class="sec-title">IAM Least Privilege</div>
-        <div class="sec-desc">Lambda only has DynamoDB access — nothing else. Limits blast radius</div>
+        <div class="sec-icon">📋</div>
+        <div class="sec-title">CloudWatch</div>
+        <div class="sec-desc">All Lambda invocations logged. Error alarm sends email via SNS when failures detected.</div>
       </div>
     </div>
   </div>
 
-  <!-- Summary chips -->
+  <!-- Summary Chips -->
   <div class="summary">
-    <div class="summary-chip"><span class="chip-dot" style="background:#f59e0b;"></span>Amplify — Frontend</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#7c3aed;"></span>Cognito — Auth</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#00d4ff;"></span>API Gateway — Routing</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#f59e0b;"></span>Lambda — Backend</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#06b6d4;"></span>DynamoDB — Database</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#10b981;"></span>CloudWatch — Monitoring</div>
-    <div class="summary-chip"><span class="chip-dot" style="background:#ef4444;"></span>WAF — Security</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#10b981"></div>GitHub + Amplify</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#ef4444"></div>WAF Protected</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#7c3aed"></div>Cognito Auth</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#00d4ff"></div>API Gateway</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#f59e0b"></div>Lambda + DynamoDB</div>
+    <div class="summary-chip"><div class="chip-dot" style="background:#10b981"></div>CloudWatch Monitored</div>
   </div>
 
-</div>
+</div><!-- end .page -->
+
+<script>
+  // ─── Auth Guard ─────────────────────────────────────────────
+  const idToken     = sessionStorage.getItem('idToken');
+  const accessToken = sessionStorage.getItem('accessToken');
+  const userEmail   = sessionStorage.getItem('userEmail');
+
+  const authGate   = document.getElementById('authGate');
+  const navbar     = document.getElementById('navbar');
+  const mainContent= document.getElementById('mainContent');
+  const navEmail   = document.getElementById('navEmail');
+  const gateCount  = document.getElementById('gateCount');
+
+  if (!idToken || !accessToken) {
+    // ── No token found — show gate and redirect ──────────────
+    authGate.classList.add('show');
+
+    let seconds = 3;
+    const countdown = setInterval(() => {
+      seconds--;
+      gateCount.textContent = `Redirecting in ${seconds}s...`;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        goToLogin();
+      }
+    }, 1000);
+
+  } else {
+    // ── Token found — show dashboard ─────────────────────────
+    navbar.style.display      = 'flex';
+    mainContent.style.display = 'block';
+
+    if (userEmail) {
+      navEmail.textContent = userEmail;
+    }
+  }
+
+  // ─── Go to Login ────────────────────────────────────────────
+  function goToLogin() {
+    window.location.href = 'index.html';
+  }
+
+  // ─── Logout ─────────────────────────────────────────────────
+  function handleLogout() {
+    sessionStorage.removeItem('idToken');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('userEmail');
+    window.location.href = 'index.html';
+  }
+</script>
 </body>
 </html>
-
-
 
