@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
           margin: 0;
@@ -13,7 +14,7 @@
           box-sizing: border-box;
           font-family: "Poppins", sans-serif;
         }
-
+ 
         body {
           height: 100vh;
           display: flex;
@@ -23,188 +24,368 @@
           background-size: 300% 300%;
           animation: gradientMove 10s ease infinite;
         }
-
+ 
         @keyframes gradientMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-
+ 
         .container {
           backdrop-filter: blur(15px);
           background: rgba(255, 255, 255, 0.15);
-          padding: 35px;
-          width: 360px;
-          border-radius: 15px;
-          box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+          padding: 40px 35px;
+          width: 380px;
+          border-radius: 20px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.35);
           text-align: center;
           color: #fff;
+          border: 1px solid rgba(255,255,255,0.2);
         }
-
+ 
+        .lock-icon {
+          font-size: 42px;
+          margin-bottom: 8px;
+          display: block;
+          filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+ 
         h2 {
-          margin-bottom: 25px;
+          margin-bottom: 6px;
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
         }
-
+ 
+        .subtitle {
+          font-size: 12px;
+          color: rgba(255,255,255,0.65);
+          margin-bottom: 30px;
+          font-weight: 300;
+          letter-spacing: 0.5px;
+        }
+ 
         .input-group {
           position: relative;
           margin-bottom: 20px;
+          text-align: left;
         }
-
+ 
         .input-group input {
           width: 100%;
-          padding: 12px;
-          border-radius: 8px;
-          border: none;
+          padding: 14px 14px 14px 42px;
+          border-radius: 10px;
+          border: 1.5px solid rgba(255,255,255,0.25);
           outline: none;
-          background: rgba(255,255,255,0.2);
+          background: rgba(255,255,255,0.18);
           color: #fff;
           font-size: 14px;
+          font-family: "Poppins", sans-serif;
+          transition: border-color 0.3s, background 0.3s;
         }
-
-        .input-group label {
-          position: absolute;
-          top: 50%;
-          left: 12px;
-          transform: translateY(-50%);
+ 
+        .input-group input::placeholder {
+          color: rgba(255,255,255,0.55);
           font-size: 13px;
-          color: #ddd;
+        }
+ 
+        .input-group input:focus {
+          border-color: rgba(255,255,255,0.7);
+          background: rgba(255,255,255,0.25);
+        }
+ 
+        .input-icon {
+          position: absolute;
+          left: 13px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 16px;
           pointer-events: none;
-          transition: 0.3s;
+          opacity: 0.8;
         }
-
-        .input-group input:focus + label,
-        .input-group input:valid + label {
-          top: -8px;
-          left: 8px;
-          font-size: 11px;
-          background: rgba(0,0,0,0.4);
-          padding: 2px 6px;
-          border-radius: 4px;
-        }
-
-        button {
-          width: 100%;
-          padding: 12px;
+ 
+        .toggle-password {
+          position: absolute;
+          right: 13px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
           border: none;
-          border-radius: 8px;
+          color: rgba(255,255,255,0.7);
+          cursor: pointer;
+          font-size: 16px;
+          padding: 0;
+          width: auto;
+          transition: color 0.2s;
+        }
+ 
+        .toggle-password:hover {
+          color: #fff;
+          transform: translateY(-50%) scale(1.1);
+          box-shadow: none;
+        }
+ 
+        .forgot-link {
+          text-align: right;
+          margin-top: -12px;
+          margin-bottom: 22px;
+        }
+ 
+        .forgot-link a {
+          font-size: 11px;
+          color: rgba(255,255,255,0.7);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+ 
+        .forgot-link a:hover {
+          color: #fff;
+        }
+ 
+        button[type="submit"] {
+          width: 100%;
+          padding: 13px;
+          border: none;
+          border-radius: 10px;
           background: linear-gradient(135deg, #ff758c, #ff7eb3);
           color: white;
-          font-size: 16px;
+          font-size: 15px;
+          font-weight: 600;
+          font-family: "Poppins", sans-serif;
           cursor: pointer;
-          transition: 0.3s;
+          transition: all 0.3s;
+          letter-spacing: 0.5px;
+          box-shadow: 0 4px 20px rgba(255,117,140,0.4);
         }
-
-        button:hover {
-          transform: scale(1.05);
-          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+ 
+        button[type="submit"]:hover {
+          transform: scale(1.04);
+          box-shadow: 0 8px 25px rgba(255,117,140,0.55);
         }
-
-        button:disabled {
-          background: #999;
+ 
+        button[type="submit"]:disabled {
+          background: rgba(255,255,255,0.3);
           cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
         }
-
+ 
         .message {
-          margin-top: 15px;
-          font-size: 14px;
+          margin-top: 16px;
+          font-size: 13px;
+          min-height: 20px;
+          font-weight: 500;
         }
-
+ 
         .success { color: #00ffcc; }
-        .error { color: #ff4d4d; }
-
+        .error   { color: #ff6b6b; }
+ 
         .loader {
           display: none;
-          margin-top: 15px;
-          border: 4px solid rgba(255,255,255,0.2);
-          border-top: 4px solid #fff;
+          margin: 14px auto 0;
+          border: 3px solid rgba(255,255,255,0.2);
+          border-top: 3px solid #fff;
           border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          animation: spin 1s linear infinite;
-          margin-left: auto;
-          margin-right: auto;
+          width: 24px;
+          height: 24px;
+          animation: spin 0.8s linear infinite;
         }
-
+ 
         @keyframes spin {
           100% { transform: rotate(360deg); }
         }
+ 
+        .divider {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin: 20px 0 14px;
+          color: rgba(255,255,255,0.4);
+          font-size: 11px;
+        }
+ 
+        .divider::before,
+        .divider::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: rgba(255,255,255,0.2);
+        }
+ 
+        .security-note {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          font-size: 10px;
+          color: rgba(255,255,255,0.45);
+          margin-top: 18px;
+          letter-spacing: 0.3px;
+        }
     </style>
 </head>
-
+ 
 <body>
-    <div class="container">
-        <h2>Secure Login</h2>
-
-        <form id="form">
-            <div class="input-group">
-                <input type="text" id="name" required>
-                <label>Username</label>
-            </div>
-
-            <div class="input-group">
-                <input type="email" id="email" required>
-                <label>Email</label>
-            </div>
-
-            <button type="submit" id="submitBtn">Login</button>
-        </form>
-
-        <div class="loader" id="loader"></div>
-        <p class="message" id="message"></p>
+  <div class="container">
+ 
+    <span class="lock-icon">🔐</span>
+    <h2>Secure Login</h2>
+    <p class="subtitle">AWS Amplify · Cognito · Protected Access</p>
+ 
+    <form id="loginForm">
+ 
+      <!-- Email Field -->
+      <div class="input-group">
+        <span class="input-icon">📧</span>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email address"
+          required
+          autocomplete="email"
+        >
+      </div>
+ 
+      <!-- Password Field -->
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          required
+          autocomplete="current-password"
+        >
+        <button
+          type="button"
+          class="toggle-password"
+          id="toggleBtn"
+          aria-label="Toggle password visibility"
+        >👁️</button>
+      </div>
+ 
+      <!-- Forgot Password -->
+      <div class="forgot-link">
+        <a href="#">Forgot password?</a>
+      </div>
+ 
+      <button type="submit" id="submitBtn">Sign In</button>
+    </form>
+ 
+    <div class="loader" id="loader"></div>
+    <p class="message" id="message"></p>
+ 
+    <div class="divider">secured by AWS</div>
+ 
+    <div class="security-note">
+      🛡️ Protected by Amazon Cognito &amp; AWS WAF
     </div>
-
-    <script>
-        const form = document.getElementById("form");
-        const message = document.getElementById("message");
-        const loader = document.getElementById("loader");
-        const button = document.getElementById("submitBtn");
-
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById("name").value.trim();
-            const email = document.getElementById("email").value.trim();
-
-            if (!name || !email) {
-                message.innerText = "❌ Please fill all fields";
-                message.className = "message error";
-                return;
+ 
+  </div>
+ 
+  <script>
+    // ─── CONFIG ───────────────────────────────────────────────
+    const COGNITO_CONFIG = {
+      UserPoolId: 'YOUR_USER_POOL_ID',      // e.g. us-east-1_AbCdEfGhI
+      ClientId:   'YOUR_APP_CLIENT_ID',     // e.g. 1abc2defghijk3lmnop
+      Region:     'YOUR_REGION'             // e.g. us-east-1
+    };
+    // ──────────────────────────────────────────────────────────
+ 
+    const form      = document.getElementById('loginForm');
+    const message   = document.getElementById('message');
+    const loader    = document.getElementById('loader');
+    const submitBtn = document.getElementById('submitBtn');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const pwdInput  = document.getElementById('password');
+ 
+    // Toggle password visibility
+    toggleBtn.addEventListener('click', () => {
+      const isPassword = pwdInput.type === 'password';
+      pwdInput.type  = isPassword ? 'text' : 'password';
+      toggleBtn.textContent = isPassword ? '🙈' : '👁️';
+    });
+ 
+    // Login handler
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+ 
+      const email    = document.getElementById('email').value.trim();
+      const password = pwdInput.value;
+ 
+      if (!email || !password) {
+        showMessage('❌ Please fill in all fields', 'error');
+        return;
+      }
+ 
+      setLoading(true);
+ 
+      try {
+        // ── Cognito InitiateAuth (USER_PASSWORD_AUTH) ──────────
+        const authUrl = `https://cognito-idp.${COGNITO_CONFIG.Region}.amazonaws.com/`;
+ 
+        const response = await fetch(authUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth'
+          },
+          body: JSON.stringify({
+            AuthFlow: 'USER_PASSWORD_AUTH',
+            ClientId: COGNITO_CONFIG.ClientId,
+            AuthParameters: {
+              USERNAME: email,
+              PASSWORD: password
             }
-
-            try {
-                loader.style.display = "block";
-                button.disabled = true;
-                message.innerText = "";
-
-                const response = await fetch("API_URL/submit", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ name, email })
-                });
-
-                if (response.ok) {
-                    message.innerText = "✅ Logged in successfully!";
-                    message.className = "message success";
-                    form.reset();
-
-                    // After 1.5 seconds, open dashboard.html
-                    setTimeout(() => {
-                        window.location.href = "dashboard.html";
-                    }, 1500);
-                } else {
-                    throw new Error();
-                }
-
-            } catch (err) {
-                message.innerText = "❌ Login failed";
-                message.className = "message error";
-            } finally {
-                loader.style.display = "none";
-                button.disabled = false;
-            }
+          })
         });
-    </script>
+ 
+        const data = await response.json();
+ 
+        if (data.AuthenticationResult) {
+          // Save JWT tokens to sessionStorage
+          sessionStorage.setItem('idToken',      data.AuthenticationResult.IdToken);
+          sessionStorage.setItem('accessToken',  data.AuthenticationResult.AccessToken);
+          sessionStorage.setItem('refreshToken', data.AuthenticationResult.RefreshToken);
+          sessionStorage.setItem('userEmail',    email);
+ 
+          showMessage('✅ Login successful! Redirecting...', 'success');
+ 
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1500);
+ 
+        } else if (data.__type === 'NEW_PASSWORD_REQUIRED' || data.ChallengeName === 'NEW_PASSWORD_REQUIRED') {
+          showMessage('⚠️ Please contact admin to reset your password.', 'error');
+ 
+        } else if (data.__type === 'NotAuthorizedException') {
+          showMessage('❌ Incorrect email or password.', 'error');
+ 
+        } else if (data.__type === 'UserNotFoundException') {
+          showMessage('❌ No account found with this email.', 'error');
+ 
+        } else {
+          showMessage('❌ Login failed. Please try again.', 'error');
+        }
+ 
+      } catch (err) {
+        console.error('Login error:', err);
+        showMessage('❌ Network error. Please try again.', 'error');
+      } finally {
+        setLoading(false);
+      }
+    });
+ 
+    function setLoading(state) {
+      loader.style.display = state ? 'block' : 'none';
+      submitBtn.disabled   = state;
+    }
+ 
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className   = `message ${type}`;
+    }
+  </script>
 </body>
 </html>
+ 
