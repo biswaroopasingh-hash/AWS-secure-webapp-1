@@ -349,9 +349,27 @@
           sessionStorage.setItem('idToken',      data.AuthenticationResult.IdToken);
           sessionStorage.setItem('accessToken',  data.AuthenticationResult.AccessToken);
           sessionStorage.setItem('refreshToken', data.AuthenticationResult.RefreshToken);
-          sessionStorage.setItem('userEmail',    email);
- 
-          showMessage('✅ Login successful! Redirecting...', 'success');
+          sessionStorage.setItem('userEmail', email);
+
+// ── Call API Gateway to save login record ──
+const idToken = data.AuthenticationResult.IdToken;
+try {
+  await fetch('https://c4izx8ym1l.execute-api.us-east-1.amazonaws.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': idToken
+    },
+    body: JSON.stringify({
+      email: email,
+      name:  'N/A'
+    })
+  });
+} catch (apiErr) {
+  console.error('API error:', apiErr);
+}
+
+showMessage('✅ Login successful! Redirecting...', 'success');
  
           setTimeout(() => {
             window.location.href = 'dashboard.html';
